@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+  <head><% include partials/template/head.ejs %>
+  </head>
+  <body>
+  	<% include partials/template/header.ejs %>
+    <ng-view></ng-view>
+  	<section class="layout">
+  		<div class="primary">
+        <script type="text/ng-template" id="/eventlist.html">
+          <section class="artistpage">
+            <div class="search">
+              <h1>Event Directory</h1>
+              <label>search: </label>
+              <input ng-model="query" placeholder="Search for events" autofocus>
+
+              <label class="formgroup">by:
+                <select ng-model="artistOrder">
+                  <option value="name">Name</option>
+                  <option value="venue">Venue</option>
+                </select>
+              </label>
+
+              <label class="formgroup">
+                <input type="radio" ng-model="direction" name="direction" checked>
+                ascending
+               </label>
+              <label class="formgroup">
+                <input type="radio" ng-model="direction" name="direction" value="reverse">
+                descending
+              </label>
+
+            </div>
+            <ul class="artistlist">
+              <li ng-animate="'animate'" class="artist cf" ng-repeat="item in artists | filter: query | orderBy: artistOrder:direction">
+                <a href="#/{{artists.indexOf(item)}}">
+                  <img ng-src="images/events/{{item.shortname}}_tn.jpg" alt="Photo of {{item.name}}">
+                  <div class="info">
+                    <h2>{{item.name}}</h2>
+                    <h3>{{item.venue}}</h3>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </section>
+        </script>
+        <script type="text/ng-template" id="/eventdetails.html">
+          <section class="artistinfo">
+          	<div class="artist cf" ng-model="artists">
+          		<a href="#/{{prevItem}}" class="btn btn-left">&lt;</a>
+          		<a href="#/{{nextItem}}" class="btn btn-left">&gt;</a>
+          		<h1>{{artists[whichItem].name}}</h1>
+          		<div class="info">
+          		<h3>{{artists[whichItem].venue}}</h3>
+          		<img ng-src="images/events/{{artists[whichItem].shortname}}_tn.jpg" alt="Photo of {{artists[whichItem].name}}">
+          		<div class="bio">{{artists[whichItem].bio}}</div>
+          		</div>
+          	</div>
+          	<a href="#/">&laquo; Back to search</a>
+          </section>
+        </script>
+  		</div><!-- primary -->
+  		<aside class="secondary">
+  		</aside><!-- secondary -->
+  	</section><!-- layout -->
+  	<% include partials/template/footer.ejs %>
+    <% include partials/template/jsdefaults.ejs %>
+  </body>
+</html>

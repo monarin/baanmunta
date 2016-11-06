@@ -37,7 +37,7 @@ router.get('/rooms', function(req, res) {
 });
 
 
-/* GET speakers detail page */
+/* GET rooms detail page */
 router.get('/rooms/:roomsid', function(req, res) {
   var myArtwork = [];
   var myArtists = [];
@@ -55,7 +55,5 @@ router.get('/rooms/:roomsid', function(req, res) {
     page: 'artistDetail'
   });
 });
-
-
 
 module.exports = router;
